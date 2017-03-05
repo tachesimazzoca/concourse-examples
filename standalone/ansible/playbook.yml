@@ -1,0 +1,53 @@
+- hosts: standalone
+  become: yes
+  become_method: sudo
+
+  handlers:
+    - name: restart postgresql
+      service: name=postgresql state=restarted
+
+  tasks:
+
+    - name: ensure base packages are installed
+      package: name={{ item }} state=present
+      with_items:
+        - "ca-certificates"
+        - curl
+        - wget
+        - "openssh-client"
+        - openssl
+        - git
+        - subversion
+        - vim
+
+    - name: ensure the version of postgresql is 9.5
+      package:
+        name: "postgresql-9.5"
+        state: present
+
+    - name: pg_hba.conf
+      template:
+        src: ./templates/etc/postgresql/9.5/main/pg_hba.conf.j2
+        dest: /etc/postgresql/9.5/main/pg_hba.conf
+        owner: postgres
+        group: postgres
+        mode: '0600'
+      notify:
+        - restart postgresql
+
+    - name: register postgresql_tables
+      shell: 'psql -lqt | cut -d\| -f1'
+      register: postgresql_tables
+      changed_when: false
+      check_mode: no
+      become: yes
+      become_user: postgres
+
+    - name: createdb act if not exists
+      shell: |
+        createuser -S -d -R concourse
+        createdb -U concourse act
+      when: "not ('act' in postgresql_tables.stdout)"
+      become: yes
+      become_user: postgres
+
