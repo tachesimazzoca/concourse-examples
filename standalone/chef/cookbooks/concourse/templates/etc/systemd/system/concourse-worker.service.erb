@@ -1,0 +1,10 @@
+[Unit]
+Description=concourse-worker
+After=network.target
+
+[Service]
+User=root
+ExecStart=/usr/local/concourse/bin/concourse worker --work-dir /opt/concourse/worker --tsa-host localhost --tsa-public-key /usr/local/concourse/keys/tsa_host_key.pub --tsa-worker-private-key /usr/local/concourse/keys/worker_key
+
+[Install]
+WantedBy=multi-user.target

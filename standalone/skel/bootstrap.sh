@@ -18,3 +18,8 @@ then
     && chmod 600 /home/vagrant/.ssh/authorized_keys \
     && chown -R vagrant:vagrant /home/vagrant/.ssh
 fi
+
+if [ ! -d "/opt/chef" ];
+then
+  curl -L https://www.chef.io/chef/install.sh | sudo bash -s -- -v 12.19.36
+fi

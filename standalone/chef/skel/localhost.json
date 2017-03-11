@@ -1,0 +1,11 @@
+{
+  "concourse_web": {
+    "basic_auth_username": "concourse",
+    "basic_auth_password": "changeme"
+  },
+  "run_list": [
+    "recipe[base_packages]",
+    "recipe[postgresql]",
+    "recipe[concourse]"
+  ]
+}
