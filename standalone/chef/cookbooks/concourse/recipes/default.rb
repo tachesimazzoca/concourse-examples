@@ -91,15 +91,22 @@ file '/usr/local/concourse/keys/authorized_worker_keys' do
   group 'concourse'
 end
 
+execute 'systemctl daemon-reload' do
+  action :nothing
+end
+
 template '/etc/systemd/system/concourse-web.service' do
   source 'etc/systemd/system/concourse-web.service.erb'
   owner 'root'
   group 'root'
   mode 0644
+  notifies :run, 'execute[systemctl daemon-reload]', :immediately
+  notifies :restart, 'service[concourse-web.service]'
 end
 
 service 'concourse-web.service' do
   action [:enable, :start]
+  supports :restart => true, :reload => false, :status => true
 end
 
 template '/etc/systemd/system/concourse-worker.service' do
@@ -107,8 +114,11 @@ template '/etc/systemd/system/concourse-worker.service' do
   owner 'root'
   group 'root'
   mode 0644
+  notifies :run, 'execute[systemctl daemon-reload]', :immediately
+  notifies :restart, 'service[concourse-worker.service]'
 end
 
 service 'concourse-worker.service' do
   action [:enable, :start]
+  supports :restart => true, :reload => false, :status => true
 end
