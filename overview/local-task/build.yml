@@ -1,0 +1,13 @@
+platform: linux
+
+image_resource:
+  type: docker-image
+  source: {
+    repository: busybox
+  }
+
+inputs:
+- name: local-task
+
+run:
+  path: ./local-task/test.sh

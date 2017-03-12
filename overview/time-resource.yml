@@ -1,0 +1,23 @@
+resources:
+- name: every-1m
+  type: time
+  source: {
+    interval: 1m
+  }
+
+jobs:
+- name: date
+  plan:
+  - get: every-1m
+    trigger: true
+  - task: annoy
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {
+          repository: busybox
+        }
+      run:
+        path: date
+        args: ["+%Y-%m-%d %H:%M:%S%z"]
