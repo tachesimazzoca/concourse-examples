@@ -33,3 +33,30 @@ The command `execute` puts local files under the `inputs` into a build directory
 
     $ fly -t <target> execute -c task-local.yml
 
+## pipeline
+
+### hello
+
+    $ fly -t <target> pipelines
+
+    $ fly -t <target> set-pipeline -c pipeline-hello.yml -l hello-message.yml -p hello
+    $ fly -t <target> unpause-pipeline -p hello
+    $ fly -t <target> trigger-job -j hello/hello-world -w
+
+    $ fly -t <target> destroy-pipeline -p hello
+    $ fly -t <target> pipelines
+
+### timer
+
+    $ fly -t <target> set-pipeline -c pipeline-timer.yml -p timer
+    $ fly -t <target> unpause-pipeline -p timer
+
+    # Watching builds
+    $ fly -t <target> watch -j timer/current-date
+    $ fly -t <target> builds | grep timer/current-date
+
+    # To stop triggering, pause the time resource
+    $ fly -t <target> pause-resource -r timer/every-1m
+    # or pause the pipeline
+    $ fly -t <target> pause-pipeline -p timer
+
