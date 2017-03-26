@@ -1,3 +1,4 @@
+---
 jobs:
 - name: hello-world
   plan:

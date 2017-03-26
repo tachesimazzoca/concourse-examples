@@ -1,3 +1,4 @@
+---
 platform: linux
 
 image_resource:
@@ -6,8 +7,11 @@ image_resource:
     repository: busybox
   }
 
-inputs:
-- name: local-task
-
 run:
-  path: ./local-task/test.sh
+  path: sh
+  args:
+    - "-c"
+    - |
+      set -ex
+      uname -a
+      env

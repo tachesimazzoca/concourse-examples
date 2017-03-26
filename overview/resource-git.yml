@@ -1,0 +1,25 @@
+---
+resources:
+- name: resource-concourse-examples
+  type: git
+  source:
+    uri: http://github.com/tachesimazzoca/concourse-examples.git
+    branch: master
+
+jobs:
+- name: resource-git
+  plan:
+  - get: resource-concourse-examples
+  - task:  cat-git-config
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {
+          repository: busybox
+        }
+      inputs:
+      - name: resource-concourse-examples
+      run:
+        path: cat
+        args: [resource-concourse-examples/.git/config]

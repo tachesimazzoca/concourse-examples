@@ -1,3 +1,4 @@
+---
 resources:
 - name: every-1m
   type: time
@@ -10,7 +11,7 @@ jobs:
   plan:
   - get: every-1m
     trigger: true
-  - task: annoy
+  - task: echo-current-date
     config:
       platform: linux
       image_resource:
