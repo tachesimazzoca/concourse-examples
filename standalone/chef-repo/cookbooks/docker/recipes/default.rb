@@ -27,5 +27,5 @@ bash 'ensure docker registry (v2) is running' do
   code <<-EOH
     docker run -d -p #{node['docker']['registry_port']}:5000 --name registry registry:2
   EOH
-  only_if "test $(docker ps -qf name=registry | wc -l) -eq 0"
+  only_if "test $(docker ps -aq -f name=registry | wc -l) -eq 0"
 end

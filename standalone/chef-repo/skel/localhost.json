@@ -1,17 +1,17 @@
 {
  "docker": {
-    "registry_url": "127.0.0.1",
+    "registry_url": "192.168.33.101",
     "registry_port": "5000"
   },
  "concourse_web": {
     "basic_auth_username": "concourse",
     "basic_auth_password": "changeme",
-    "external_url": "http://127.0.0.1"
+    "external_url": "http://192.168.33.101"
   },
   "run_list": [
     "recipe[base_packages]",
-    "recipe[docker]",
     "recipe[postgresql]",
-    "recipe[concourse]"
+    "recipe[concourse]",
+    "recipe[docker]"
   ]
 }

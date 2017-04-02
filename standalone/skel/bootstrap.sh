@@ -1,8 +1,10 @@
 #!/bin/sh
 
 apt-get update && apt-get install -y --no-install-recommends \
+  apt-transport-https \
   ca-certificates \
   curl \
+  software-properties-common \
   python-simplejson
 
 # Add vagrant user
