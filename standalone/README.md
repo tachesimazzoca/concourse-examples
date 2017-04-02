@@ -19,14 +19,25 @@ I would rather login as the `vagrant` user with `authorized_keys`, so the provis
 
 ## Chef
 
-    $ cp chef/skel/localhost.json chef/
+    $ cp chef-repo/skel/localhost.json chef-repo/
 
-    # modify concourse_web username/password
-    $ vi chef/localhost.json
+    # modify attributes
+    $ vi chef-repo/localhost.json
+    ...
+      "docker": {
+         "registry_url": "192.168.33.101",
+         "registry_port": "5000"
+       },
+      "concourse_web": {
+         "basic_auth_username": "concourse",
+         "basic_auth_password": "changeme",
+         "external_url": "http://192.168.33.101"
+       },
+    ...
 
-    $ rsync -avz --delete --excludes=/nodes/ chef/ your-concourse-standaone:/path/to/chef-zero/
+    $ rsync -avz --delete --excludes=/nodes/ chef-repo/ your-concourse-standaone:/path/to/chef-repo/
     $ ssh your-concourse-standaone
-    $ cd /path/to/chef-zero
+    $ cd /path/to/chef-repo
     $ sudo chef-client -z -N localhost -j localhost.json
 
 ## Ansible
