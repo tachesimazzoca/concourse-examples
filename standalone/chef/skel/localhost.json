@@ -1,7 +1,8 @@
 {
   "concourse_web": {
     "basic_auth_username": "concourse",
-    "basic_auth_password": "changeme"
+    "basic_auth_password": "changeme",
+    "external_url": "127.0.0.1"
   },
   "run_list": [
     "recipe[base_packages]",
