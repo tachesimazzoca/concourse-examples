@@ -32,6 +32,7 @@ I would rather login as the `vagrant` user with `authorized_keys`, so the provis
          "basic_auth_username": "concourse",
          "basic_auth_password": "changeme",
          "external_url": "http://192.168.33.101"
+         ...
        },
     ...
 
@@ -39,33 +40,4 @@ I would rather login as the `vagrant` user with `authorized_keys`, so the provis
     $ ssh your-concourse-standaone
     $ cd /path/to/chef-repo
     $ sudo chef-client -z -N localhost -j localhost.json
-
-## Ansible
-
-### Install Ansible with Virtualenv
-
-    $ sudo easy_install pip
-    $ sudo pip install virtualenv
-
-    # Install ansible in ~/.virtualenv/ansible
-    $ mkdir ~/.virtualenv
-    $ cd ~/.virtualenv
-    $ virtualenv --no-site-packages ansible
-    $ source ~/.virtualenv/bin/activate
-    $ pip install ansible
-    $ ansible --version
-
-### Running Playbook
-
-    $ make
-
-    # Modify your ansible hosts
-    $ vi etc/hosts
-    [standalone]
-    xxx.xxx.xxx.xxx
-
-    # Modify ansible.cfg if needed
-    $ vi ansible.cfg
-
-    $ ansible-playbook playbook.yml
 

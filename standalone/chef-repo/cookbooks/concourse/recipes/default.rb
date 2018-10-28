@@ -35,7 +35,7 @@ end
   bash "ensure /usr/local/bin/#{x}_linux_amd64 is installed" do
     code <<-EOH
       cd /usr/local/concourse/bin
-      curl -LO https://github.com/concourse/concourse/releases/download/v2.7.0/#{x}_linux_amd64
+      curl -LO https://github.com/concourse/concourse/releases/download/v4.2.1/#{x}_linux_amd64
       chmod 700 #{x}_linux_amd64
       chown concourse:concourse #{x}_linux_amd64
     EOH

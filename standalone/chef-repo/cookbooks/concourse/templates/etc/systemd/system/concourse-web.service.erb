@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 User=concourse
-ExecStart=/usr/local/concourse/bin/concourse web --basic-auth-username <%= node['concourse_web']['basic_auth_username'] %> --basic-auth-password <%= node['concourse_web']['basic_auth_password'] %> --session-signing-key /usr/local/concourse/keys/session_signing_key --tsa-host-key /usr/local/concourse/keys/tsa_host_key --tsa-authorized-keys /usr/local/concourse/keys/authorized_worker_keys --postgres-data-source postgres://concourse@localhost:5432/concourse?sslmode=disable --external-url <%= node['concourse_web']['external_url'] %>
+ExecStart=/usr/local/concourse/bin/concourse web --add-local-user <%= node['concourse_web']['add_local_user'] %> --main-team-local-user <%= node['concourse_web']['main_team_local_user'] %> --session-signing-key /usr/local/concourse/keys/session_signing_key --tsa-host-key /usr/local/concourse/keys/tsa_host_key --tsa-authorized-keys /usr/local/concourse/keys/authorized_worker_keys --external-url <%= node['concourse_web']['external_url'] %> --postgres-host <%= node['concourse_web']['postgres_host'] %> --postgres-port <%= node['concourse_web']['postgres_port'] %> --postgres-user <%= node['concourse_web']['postgres_user'] %> --postgres-database <%= node['concourse_web']['postgres_database'] %> --postgres-sslmode <%= node['concourse_web']['postgres_sslmode'] %>
 
 [Install]
 WantedBy=multi-user.target

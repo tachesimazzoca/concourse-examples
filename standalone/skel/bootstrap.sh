@@ -25,3 +25,7 @@ if [ ! -d "/opt/chef" ];
 then
   curl -L https://www.chef.io/chef/install.sh | sudo bash -s -- -v 12.19.36
 fi
+
+# workaround for ubuntu
+sudo hostnamectl set-hostname localhost
+sudo iptables -P FORWARD ACCEPT
