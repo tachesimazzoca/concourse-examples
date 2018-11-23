@@ -1,9 +1,21 @@
+bash 'ensure gpg key is installed' do
+  code <<-EOH
+    curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+  EOH
+  only_if "test $(sudo apt-key fingerprint 0EBFCD88 | wc -l) -eq 0"
+end
+
 apt_repository 'docker-ce' do
-  uri 'https://download.docker.com/linux/ubuntu'
-  distribution 'xenial'
+  uri 'https://download.docker.com/linux/debian'
+  distribution 'stretch'
   components ['stable']
   arch 'amd64' 
-  key 'https://download.docker.com/linux/ubuntu/gpg'
+  key 'https://download.docker.com/linux/debian/gpg'
+  notifies :update, 'apt_update[docker-ce]'
+end
+
+apt_update 'docker-ce' do
+  action :update
 end
 
 package 'docker-ce' do

@@ -5,9 +5,13 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  config.vm.box = "ubuntu/xenial64"
-  config.vm.network "private_network", ip: "xxx.xxx.xxx.xxx"
+  config.vm.box = "debian/stretch64"
+  config.vm.box_url = "https://vagrantcloud.com/debian/stretch64"
+  config.vm.box_version = "9.6.0"
+
+  config.vm.network "private_network", ip: "192.168.33.151"
   config.ssh.insert_key = false
   config.vm.provision :shell, :path => "bootstrap.sh"
+  config.vm.synced_folder '.', '/vagrant', disabled: true
 
 end

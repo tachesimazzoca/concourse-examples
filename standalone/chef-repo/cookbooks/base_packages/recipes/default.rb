@@ -1,13 +1,4 @@
-[
-  'ca-certificates',
-  'curl',
-  'wget',
-  'openssh-client',
-  'openssl',
-  'git',
-  'subversion',
-  'vim'
-].each do |pkg|
+node['base_packages'].each do |pkg|
   package pkg do
     action :install
   end

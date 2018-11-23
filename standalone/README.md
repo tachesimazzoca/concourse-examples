@@ -1,8 +1,8 @@
 # concourse-examples
 
-## Ubuntu 16.04.2 LTS with Vagrant
+## Debian (Stretch) with Vagrant
 
-Concouse standalone binary requires Linux kernel 3.19+ and PostgreSQL 9.3+. This examples uses [ubuntu/xenial64 in Atlas](https://atlas.hashicorp.com/ubuntu/boxes/xenial64) as a base box.
+Concourse standalone binary requires Linux kernel 3.19+ and PostgreSQL 9.3+. This examples uses [debian/stretch64](https://app.vagrantup.com/debian/boxes/stretch64) as a base box.
 
     $ make
 
@@ -13,10 +13,6 @@ Concouse standalone binary requires Linux kernel 3.19+ and PostgreSQL 9.3+. This
 
     $ vagrant up
 
-This image has the `ubuntu` user as a sudoer. The password can be found at `~/.vagrant.d/boxes/ubuntu-VAGRANTSLASH-xenial64/YYYYmmdd.x.x/virtualbox/Vagrantfile`.
-
-I would rather login as the `vagrant` user with `authorized_keys`, so the provisioning script `bootstrap.sh` contains code to accomplish it.
-
 ## Chef
 
     $ cp chef-repo/skel/localhost.json chef-repo/
@@ -25,19 +21,23 @@ I would rather login as the `vagrant` user with `authorized_keys`, so the provis
     $ vi chef-repo/localhost.json
     ...
       "docker": {
-         "registry_url": "192.168.33.101",
-         "registry_port": "5000"
-       },
+        "registry_url": "192.168.33.151",
+        "registry_port": "5000"
+      },
       "concourse_web": {
-         "basic_auth_username": "concourse",
-         "basic_auth_password": "changeme",
-         "external_url": "http://192.168.33.101"
-         ...
-       },
+        "add_local_user": "admin:changeme",
+        "main_team_local_user": "admin",
+        "external_url": "http://192.168.33.151:8080",
+        "postgres_host": "localhost",
+        "postgres_port": "5432",
+        "postgres_user": "concourse",
+        "postgres_database": "concourse",
+        "postgres_sslmode": "disable"
+      },
     ...
 
-    $ rsync -avz --delete --excludes=/nodes/ chef-repo/ your-concourse-standaone:/path/to/chef-repo/
-    $ ssh your-concourse-standaone
+    $ rsync -avz --delete --excludes=/nodes/ chef-repo/ your-concourse-standalone:/path/to/chef-repo/
+    $ ssh your-concourse-standalone
     $ cd /path/to/chef-repo
     $ sudo chef-client -z -N localhost -j localhost.json
 

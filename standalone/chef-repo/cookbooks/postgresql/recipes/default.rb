@@ -7,8 +7,8 @@ service 'postgresql' do
   action [:enable, :start]
 end
 
-template '/etc/postgresql/9.5/main/pg_hba.conf' do
-  source 'etc/postgresql/9.5/main/pg_hba.conf.erb'
+template '/etc/postgresql/9.6/main/pg_hba.conf' do
+  source 'etc/postgresql/9.6/main/pg_hba.conf.erb'
   owner 'postgres'
   group 'postgres'
   mode 0600

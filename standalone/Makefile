@@ -1,7 +1,7 @@
 .PHONY: all
 all:
 	@cp skel/Vagrantfile .
-	@cp skel/boostrap.sh .
+	@cp skel/bootstrap.sh .
 
 .PHONY: clean
 clean:

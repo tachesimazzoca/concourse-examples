@@ -1,12 +1,30 @@
 {
- "docker": {
-    "registry_url": "192.168.33.101",
+  "base_packages": [
+    "ca-certificates",
+    "curl",
+    "wget",
+    "openssh-client",
+    "openssl",
+    "git",
+    "subversion",
+    "vim"
+  ],
+  "docker": {
+    "registry_url": "192.168.33.151",
     "registry_port": "5000"
   },
- "concourse_web": {
-    "basic_auth_username": "concourse",
-    "basic_auth_password": "changeme",
-    "external_url": "http://192.168.33.101"
+  "concourse_web": {
+    "add_local_user": "admin:admin",
+    "main_team_local_user": "admin",
+    "external_url": "http://192.168.33.151:8080",
+    "postgres_host": "localhost",
+    "postgres_port": "5432",
+    "postgres_user": "concourse",
+    "postgres_database": "concourse",
+    "postgres_sslmode": "disable"
+  },
+  "concourse_worker": {
+    "tsa_host": "127.0.0.1:2222"
   },
   "run_list": [
     "recipe[base_packages]",
