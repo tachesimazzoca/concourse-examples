@@ -2,7 +2,7 @@ version: '3'
 
 services:
   concourse-db:
-    image: postgres
+    image: postgres:9.6
     environment:
     - POSTGRES_DB=concourse
     - POSTGRES_PASSWORD=concourse_pass
