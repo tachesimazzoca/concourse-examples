@@ -1,8 +1,8 @@
-# concourse-examples
+# Setup Concourse in a standalone host
 
-## Debian (Stretch) with Vagrant
+## Debian with Vagrant
 
-Concourse standalone binary requires Linux kernel 3.19+ and PostgreSQL 9.3+. This examples uses [debian/stretch64](https://app.vagrantup.com/debian/boxes/stretch64) as a base box.
+Concourse standalone binary requires Linux kernel 4.19+ and PostgreSQL 9.3+. This examples uses [debian/bullseye64](https://app.vagrantup.com/debian/boxes/bullseye64) as a base box.
 
     $ make
 

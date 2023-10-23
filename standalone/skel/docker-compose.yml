@@ -2,7 +2,7 @@ version: '3'
 
 services:
   concourse-db:
-    image: postgres:9.6
+    image: postgres:12-bullseye
     environment:
     - POSTGRES_DB=concourse
     - POSTGRES_PASSWORD=concourse_pass
@@ -10,7 +10,7 @@ services:
     - PGDATA=/database
 
   concourse:
-    image: concourse/concourse:4.2.1
+    image: concourse/concourse:7.10.0
     command: quickstart
     privileged: true
     depends_on: [concourse-db]

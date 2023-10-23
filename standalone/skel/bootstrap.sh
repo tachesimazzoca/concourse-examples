@@ -10,7 +10,10 @@ apt-get install -y --no-install-recommends \
     curl \
     gnupg2 \
     software-properties-common \
-    rsync
+    rsync \
+    ntp \
+    vim \
+    git
 
 # add vagrant user
 id_vagrant=$(id -u vagrant || true)
@@ -30,5 +33,5 @@ chown -R vagrant:vagrant /home/vagrant/.ssh
 
 if [ ! -d "/opt/chef" ];
 then
-  curl -L https://omnitruck.chef.io/install.sh | sudo bash
+  curl -L https://omnitruck.chef.io/install.sh | sudo bash -s -- -v 14.15.6
 fi
