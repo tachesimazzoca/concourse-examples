@@ -7,10 +7,10 @@ service 'postgresql' do
   action [:enable, :start]
 end
 
-template '/etc/postgresql/9.6/main/pg_hba.conf' do
-  source 'etc/postgresql/9.6/main/pg_hba.conf.erb'
+template '/etc/postgresql/13/main/pg_hba.conf' do
+  source 'etc/postgresql/13/main/pg_hba.conf.erb'
   owner 'postgres'
   group 'postgres'
-  mode 0600
+  mode 0640
   notifies :restart, 'service[postgresql]', :immediately
 end
